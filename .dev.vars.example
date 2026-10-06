@@ -1,0 +1,2 @@
+# Server-side only. Copy to .dev.vars and supply your own key.
+COINGECKO_API_KEY=
