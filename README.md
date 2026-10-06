@@ -28,10 +28,10 @@ Source endpoint: GET /api/v3/onchain/networks/solana/wallets/{address}/trades.
 - Require an observed first follower buy from 0 to 30 minutes after the leader's. This is a heuristic candidate match, not proof of copy intent.
 - Quantity-weighted entry = total observed buy USD / tokens bought. Exit uses sale USD / tokens sold.
 - Closed means observed buy/sell quantities reconcile within 0.00001% relative rounding tolerance. Opposing fills in the same timestamp are considered ambiguously ordered.
-- Gross return = (exit / entry - 1) Ã— 100.
+- Gross return = (exit / entry - 1) * 100.
 - Headline averages give each eligible token equal weight; they are not portfolio returns.
-- Entry effect = (leader exit / follower entry - leader exit / leader entry) Ã— 100.
-- Exit effect = (follower exit / follower entry - leader exit / follower entry) Ã— 100.
+- Entry effect = (leader exit / follower entry - leader exit / leader entry) * 100.
+- Exit effect = (follower exit / follower entry - leader exit / follower entry) * 100.
 - Effects sum to follower return minus leader return, in percentage points.
 
 These are CopyCheck calculations, not CoinGecko ratings. Timing is an observed block-timestamp difference. It does not prove bot latency or causally separate slippage from a moving market. A counterfactual executable quote is not available.
