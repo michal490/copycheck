@@ -2,8 +2,8 @@
   "mode": "live",
   "from": "2026-10-06",
   "to": "2026-10-06",
-  "leaderWallet": "4W6vjpJDpktUFyY28hp97RDMePbQfnj7QNEeXUrknFHi",
-  "followerWallet": "B8PmBDWrrwGwHbcEjqFXjBogkPA5f6gtDuEDMHjdH9Bi",
+  "leaderWallet": "Af3tCQpsogVJSKMwQxhyhodzVCSF7pnLepBuTtgWALKs",
+  "followerWallet": "HWAoWvdBW2bHn5sSbxnYf8X3uuGfk6v5VZ5Aa7ya6nQf",
   "rows": [
     {
       "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
@@ -13,77 +13,32 @@
         "label": "AVKpe…pump",
         "trades": [
           {
-            "id": "solana_453853150_4kMGsnLE2tkb92dp5MVcYBt4HfeatvExx86W1gYbzqA5UhCoZzp6sKwTj1UzFmzJzeAKj2Bp7aCuEnLR7P7eUxsj_30_1791276757",
+            "id": "solana_453867057_4ekBdPibRNu8BQBpTgt64qUbcRfEQazzE54F6dfGL7sqmx4hzTwKyDF14icYQX1QgruW9oznganwnnM89BLkK95_30_1791280496",
             "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
             "side": "buy",
-            "quantity": 225383.540712,
-            "usd": 20.719533212686205,
-            "time": 1791276754000,
-            "tx": "4kMGsnLE2tkb92dp5MVcYBt4HfeatvExx86W1gYbzqA5UhCoZzp6sKwTj1UzFmzJzeAKj2Bp7aCuEnLR7P7eUxsj"
+            "quantity": 438830.023581,
+            "usd": 36.64229774918758,
+            "time": 1791280471000,
+            "tx": "4ekBdPibRNu8BQBpTgt64qUbcRfEQazzE54F6dfGL7sqmx4hzTwKyDF14icYQX1QgruW9oznganwnnM89BLkK95"
           },
           {
-            "id": "solana_453854381_4BB6XEFRP3uh54c2kK2SYjYa8HH7VMzEjVpZeUnWXCULs9TEr2qNFFD3MCWgkrsiNzNFzPDTJNEKxgAYcsgMWQMc_30_1791277171",
-            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
-            "side": "buy",
-            "quantity": 138418.758632,
-            "usd": 12.75688283890572,
-            "time": 1791277082000,
-            "tx": "4BB6XEFRP3uh54c2kK2SYjYa8HH7VMzEjVpZeUnWXCULs9TEr2qNFFD3MCWgkrsiNzNFzPDTJNEKxgAYcsgMWQMc"
-          },
-          {
-            "id": "solana_453856334_5Yh5G7w7ARZRESXBbpTnZmCMqycF1GeXsC1kJ8rSERaCHcAcHi3yTCiyHQtfEpZnAZ12Hqsz7uaskjXpFgeyKmtS_30_1791277689",
-            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
-            "side": "buy",
-            "quantity": 31043.916082,
-            "usd": 2.875189583366659,
-            "time": 1791277605000,
-            "tx": "5Yh5G7w7ARZRESXBbpTnZmCMqycF1GeXsC1kJ8rSERaCHcAcHi3yTCiyHQtfEpZnAZ12Hqsz7uaskjXpFgeyKmtS"
-          },
-          {
-            "id": "solana_453858074_x3TPV2dpsZmbTKRh6bJ8zsBphFyrfWGkMa4ErYGJjWHNyDyxrY6DhFXpVyDjaufeZopyrBzN2YxZeU8mAbc1Df5_30_1791278081",
-            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
-            "side": "buy",
-            "quantity": 63711.400905,
-            "usd": 5.9080809496858375,
-            "time": 1791278069000,
-            "tx": "x3TPV2dpsZmbTKRh6bJ8zsBphFyrfWGkMa4ErYGJjWHNyDyxrY6DhFXpVyDjaufeZopyrBzN2YxZeU8mAbc1Df5"
-          },
-          {
-            "id": "solana_453859073_iiQPwFAgGTxNtu5ugTnKCH6vmU18QBCwBj5YHXHA6ZVNwRMReW8MGMsPJCTfYjdXkmbCZ8jV54k1bNj6CP3Mfww_30_1791278340",
-            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
-            "side": "buy",
-            "quantity": 140812.864033,
-            "usd": 13.170533331898497,
-            "time": 1791278333000,
-            "tx": "iiQPwFAgGTxNtu5ugTnKCH6vmU18QBCwBj5YHXHA6ZVNwRMReW8MGMsPJCTfYjdXkmbCZ8jV54k1bNj6CP3Mfww"
-          },
-          {
-            "id": "solana_453861731_3PDaAHTPebqfpwKC3NZnJpbTjjFVpQDixkzxsyiZLRurRBWP529ZyFUfSg7477Cc45A7HYHvLf46Ft3NDX4stXiA_30_1791279047",
-            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
-            "side": "buy",
-            "quantity": 18034.223581,
-            "usd": 1.6578371793701066,
-            "time": 1791279044000,
-            "tx": "3PDaAHTPebqfpwKC3NZnJpbTjjFVpQDixkzxsyiZLRurRBWP529ZyFUfSg7477Cc45A7HYHvLf46Ft3NDX4stXiA"
-          },
-          {
-            "id": "solana_453863953_3NamJXfoVqTvLXnXNCgh4rAKSXwT2FPQUW82eyc6MZsxYD9dCNpKDn5mewq6dSScXibyYi3tChFnjVSFvEiFkoW4_10_1791279644",
+            "id": "solana_453868976_4P676tggY5eoDupvw44rzxByRjkCHztuGoy7tNXpyNv2GD3b8mvKd4FqGwzAMmpSXYaxccoVapG3J8YAmoxkPftc_10_1791280993",
             "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
             "side": "sell",
-            "quantity": 617404.703945,
-            "usd": 55.70203741266572,
-            "time": 1791279637000,
-            "tx": "3NamJXfoVqTvLXnXNCgh4rAKSXwT2FPQUW82eyc6MZsxYD9dCNpKDn5mewq6dSScXibyYi3tChFnjVSFvEiFkoW4"
+            "quantity": 438830.023581,
+            "usd": 36.222596700172225,
+            "time": 1791280982000,
+            "tx": "4P676tggY5eoDupvw44rzxByRjkCHztuGoy7tNXpyNv2GD3b8mvKd4FqGwzAMmpSXYaxccoVapG3J8YAmoxkPftc"
           }
         ],
-        "bought": 617404.703945,
-        "sold": 617404.703945,
-        "entry": 0.00009246456454111918,
-        "exit": 0.00009021965180496552,
-        "firstBuy": 1791276754000,
-        "lastSell": 1791279637000,
+        "bought": 438830.023581,
+        "sold": 438830.023581,
+        "entry": 0.00008349997898998376,
+        "exit": 0.00008254356984188024,
+        "firstBuy": 1791280471000,
+        "lastSell": 1791280982000,
         "status": "closed",
-        "returnPct": -2.427862768071909,
+        "returnPct": -1.1454004655716665,
         "remaining": 0
       },
       "follower": {
@@ -91,57 +46,66 @@
         "label": "AVKpe…pump",
         "trades": [
           {
-            "id": "solana_453855041_3E9PbS2MaLZNEit2tNDZeP3pnLTM4Usm54htgqaBpS5gs1x1MH3WWmBGrmfbtRDFYMkky4EYEy9hMikTZYb7dqZ3_30_1791277264",
+            "id": "solana_453873445_2YaAVxeVhkX66Je4HvvHsR6QVv4R6qnjJApZQuDWF6DKByUjGn4md8ZizJa8H1pYGoQyxkyFE8UjXd4qAH5Fbk94_30_1791282176",
             "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
             "side": "buy",
-            "quantity": 1296513.652565,
-            "usd": 119.53136992047206,
-            "time": 1791277259000,
-            "tx": "3E9PbS2MaLZNEit2tNDZeP3pnLTM4Usm54htgqaBpS5gs1x1MH3WWmBGrmfbtRDFYMkky4EYEy9hMikTZYb7dqZ3"
+            "quantity": 645326.83304,
+            "usd": 54.05099306782985,
+            "time": 1791282173000,
+            "tx": "2YaAVxeVhkX66Je4HvvHsR6QVv4R6qnjJApZQuDWF6DKByUjGn4md8ZizJa8H1pYGoQyxkyFE8UjXd4qAH5Fbk94"
           },
           {
-            "id": "solana_453858733_5ZM66BEWCj135duqWYrkTt2mzPQ5kRkQsLA8GVpqUv3QeHNVB5GvnUwFQdUtP3HSRi8M9B24cZjfW4d1eJneN7b5_30_1791278247",
+            "id": "solana_453879272_5Cqkq39n7HiuM5TnpueZKbmf35H6BSfvH6nbyMSCARjBce235mjaUef7kGmbgqPeNupiDPbnRVDJocqESL1tHWY5_30_1791283734",
             "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
             "side": "buy",
-            "quantity": 536606.948281,
-            "usd": 49.9563593477442,
-            "time": 1791278243000,
-            "tx": "5ZM66BEWCj135duqWYrkTt2mzPQ5kRkQsLA8GVpqUv3QeHNVB5GvnUwFQdUtP3HSRi8M9B24cZjfW4d1eJneN7b5"
+            "quantity": 96554.502692,
+            "usd": 8.027375143255224,
+            "time": 1791283728000,
+            "tx": "5Cqkq39n7HiuM5TnpueZKbmf35H6BSfvH6nbyMSCARjBce235mjaUef7kGmbgqPeNupiDPbnRVDJocqESL1tHWY5"
           },
           {
-            "id": "solana_453866580_2Cjz6PdqSPfp4R9B2bGeTTHm84RoLffikUHa9bJXdyQzRsP9ZPXXdKTGEEr62efa73pVsMKLwoyr6BFmC7Yc2iaM_10_1791280415",
+            "id": "solana_453884291_2cxGyFoZ7ujnLeqofsBnYTNXknUdA9feFvwMv4SFnYTijU1cBqEiqJaq14pXP4pD9H9ht1WribJdbmmZf7KxzTFW_30_1791285077",
+            "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
+            "side": "buy",
+            "quantity": 64967.808816,
+            "usd": 5.381115323230664,
+            "time": 1791285063000,
+            "tx": "2cxGyFoZ7ujnLeqofsBnYTNXknUdA9feFvwMv4SFnYTijU1cBqEiqJaq14pXP4pD9H9ht1WribJdbmmZf7KxzTFW"
+          },
+          {
+            "id": "solana_453890050_564mKbJRKwmqgVU1W5B1aY12Ep9oxskCkySkrmMdhNgm84jPWaSqakZ6tTYmwET6rQ5NWkJoDRJcT93dg9LSvE5M_10_1791286648",
             "token": "AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump",
             "side": "sell",
-            "quantity": 1833120.600846,
-            "usd": 164.0207188051893,
-            "time": 1791280342000,
-            "tx": "2Cjz6PdqSPfp4R9B2bGeTTHm84RoLffikUHa9bJXdyQzRsP9ZPXXdKTGEEr62efa73pVsMKLwoyr6BFmC7Yc2iaM"
+            "quantity": 806849.144548,
+            "usd": 64.07831060691856,
+            "time": 1791286599000,
+            "tx": "564mKbJRKwmqgVU1W5B1aY12Ep9oxskCkySkrmMdhNgm84jPWaSqakZ6tTYmwET6rQ5NWkJoDRJcT93dg9LSvE5M"
           }
         ],
-        "bought": 1833120.600846,
-        "sold": 1833120.600846,
-        "entry": 0.00009245858084296051,
-        "exit": 0.000089476229075977,
-        "firstBuy": 1791277259000,
-        "lastSell": 1791280342000,
+        "bought": 806849.1445480001,
+        "sold": 806849.144548,
+        "entry": 0.0000836085456496416,
+        "exit": 0.00007941795692528803,
+        "firstBuy": 1791282173000,
+        "lastSell": 1791286599000,
         "status": "closed",
-        "returnPct": -3.2256084181618405,
-        "remaining": 0
+        "returnPct": -5.012153592425905,
+        "remaining": 1.1641532182693481e-10
       },
       "comparable": true,
       "finding": "Lower exit price",
       "title": "The exit price explains most of the gap.",
-      "explanation": "Your first buy was 8.4m later relative to the leader, at essentially the same average entry price. These are observed differences; timing does not establish their cause.",
-      "entryDelay": 505,
-      "exitDelay": 705,
-      "entryEffect": 0.006314635294735194,
-      "exitEffect": -0.8040602853846668,
-      "gap": -0.7977456500899316
+      "explanation": "Your first buy was 28.4m later relative to the leader, at a 0.1% higher average entry price. These are observed differences; timing does not establish their cause.",
+      "entryDelay": 1702,
+      "exitDelay": 5617,
+      "entryEffect": -0.12836383625473013,
+      "exitEffect": -3.7383892905995086,
+      "gap": -3.8667531268542388
     }
   ],
-  "leaderAverage": -2.427862768071909,
-  "followerAverage": -3.2256084181618405,
-  "gap": -0.7977456500899316,
+  "leaderAverage": -1.1454004655716665,
+  "followerAverage": -5.012153592425905,
+  "gap": -3.8667531268542388,
   "comparableCount": 1,
   "coverage": {
     "leader": {
@@ -155,5 +119,5 @@
       "pages": 1
     }
   },
-  "createdAt": "2026-10-06T09:59:13.891Z"
+  "createdAt": "2026-10-06T11:58:14.957Z"
 }

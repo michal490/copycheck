@@ -4,7 +4,7 @@ A focused Solana trade review app. Compare a wallet you followed with your own a
 
 [Try the live app](https://copycheck-trade-review.mszajnowiec.chatgpt.site/) · [Technical white paper](docs/CopyCheck-white-paper.pdf) · [Developer reference](docs/Developer-reference.html)
 
-![Saved live comparison: observed returns differ mainly at exit](docs/screenshots/02-price-comparison.png)
+![Article example: observed returns differ mainly at exit](docs/screenshots/article-price-comparison.png)
 
 ## Included
 - Interactive fictional example with four distinct cases: higher entry price, worse exit, partial exit and missing follower record.
@@ -63,7 +63,27 @@ Open the local address printed by the development server (normally http://localh
 
 ## Saved example and documentation
 
-The saved report compares two public test addresses, not a verified copying relationship. One comparable token returned -2.4279% for the leader input and -3.2256% for the follower input, a -0.7977 percentage-point gap before explicit fee accounting. It does not establish net dollar loss or bot failure.
+The saved report is the article's AVKpe…pump example, captured from the live app on **6 October 2026 at 11:58:14 UTC**. Wallet A returned **-1.1454%** and Wallet B **-5.0122%** before fees (-1.15% and -5.01% in the article). B minus A is **-3.8668 percentage points**: -0.1284 from entry prices and -3.7384 from exit prices under CopyCheck's decomposition.
+
+| Observed result | Wallet A (leader input) | Wallet B (follower input) |
+| --- | --- | --- |
+| Buys / sells | 1 / 1 | 3 / 1 |
+| USD spent | $36.64 | $67.46 |
+| USD received | $36.22 | $64.08 |
+| Gross dollar result | -$0.42 | -$3.38 |
+
+To repeat the comparison in the app, enter:
+
+- **Wallet you followed (A):** `Af3tCQpsogVJSKMwQxhyhodzVCSF7pnLepBuTtgWALKs`
+- **Your wallet (B):** `HWAoWvdBW2bHn5sSbxnYf8X3uuGfk6v5VZ5Aa7ya6nQf`
+- **From and to:** `2026-10-06` (UTC).
+- **Token:** `AVKpeeWaCku3Mni5THbY4bkBnMrPzAEnnQKtP3wPpump`.
+
+Click **Compare wallets**, then open the token's price comparison and Evidence tab. Both histories returned one page with complete pagination and zero skipped records at capture time. Later API results may differ as provider data changes; the JSON preserves the captured trades and results. To reproduce the arithmetic offline without an API key, run `node --experimental-strip-types scripts/verify-example.ts`.
+
+This pair had the most negative follower-minus-leader return difference among 84 eligible token comparisons discovered from 60 public wallets. It was deliberately selected, not a representative copy-trading result. The addresses are test roles, not a verified copying relationship. Fees, transfers and earlier holdings are not reconciled; these figures do not establish net wallet losses or bot failure.
+
+The white paper and technical reference below are historical documentation and may show the earlier example. Use `docs/example.json` and the instructions above for the current article example.
 
 - [Saved report JSON](docs/example.json)
 - [White paper](docs/CopyCheck-white-paper.pdf)
