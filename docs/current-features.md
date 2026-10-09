@@ -37,19 +37,20 @@ Both wallet views use CoinGecko's Pro wallet-trades endpoint with an entitled se
 
 Fees, gas, tips, transfers, earlier inventory and every possible trading venue are not reconciled. A configured-key status is not proof of endpoint entitlement. Wallet addresses are sent to CoinGecko when a live review is requested. Wallet report responses use no-store; the public price and market snapshots have short cache lifetimes.
 
-## Token identity and DEX Screener
+## Token identity and CoinGecko market context
 
-Live token details in both wallet views show the full token address, **Copy**, and **Open live chart**. The chart opens on DEX Screener; it is not embedded in CopyCheck.
+The independent wallet-review panel shows the full token address, **Copy**, and **Open CoinGecko chart**. The chart opens externally on GeckoTerminal by CoinGecko.
 
-The server calls DEX Screener's public endpoint, which needs no API key:
+The server uses its existing `COINGECKO_API_KEY` with onchain access:
 
 ```text
-GET https://api.dexscreener.com/token-pairs/v1/solana/{tokenAddress}
+GET https://pro-api.coingecko.com/api/v3/onchain/networks/solana/tokens/{tokenAddress}/pools?include=base_token,quote_token,dex&page=1
+x-cg-pro-api-key: <server-side secret>
 ```
 
-It requires an exact base-token address and Solana chain match, then selects the returned matching pool with the highest reported USD liquidity. The panel shows name, symbol, price, pool liquidity and 24-hour pool volume with a fetch timestamp. **Refresh market** requests another snapshot; successful responses can be cached for 30 seconds. The selected pool can differ from the historical execution pool. Current quotes are not historical fills or guaranteed sale prices. No pool or an API error is shown explicitly instead of inventing data.
+Exact token relationships select the requested token's base or quote USD price. The panel selects the highest reported reserves among up to 20 returned matching pools and shows token name, symbol, price, reported pool reserves, 24-hour pool volume and fetch time. Missing values stay unavailable. **Refresh market** requests another snapshot; successful responses can be cached for 30 seconds. The selected pool may differ from the historical execution pool, and current prices are not historical fills or executable sale quotes.
 
-CoinGecko supplies wallet history and holdings prices. DEX Screener supplies this separately labelled market context. Fictional demo tokens do not receive blockchain links.
+CoinGecko supplies holdings quotes, wallet history and market context. There is no other market-data provider or fallback. Solscan links are transaction evidence links, not data requests. Fictional demo tokens receive no blockchain links. A missing server key or unavailable upstream request is shown explicitly.
 
 ## How the article's two-wallet example was selected
 

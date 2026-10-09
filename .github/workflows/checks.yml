@@ -12,6 +12,6 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - run: node --experimental-strip-types --test tests/analysis.test.ts
+      - run: node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts tests/token-market.test.ts
       - run: npx tsc --noEmit
       - run: npm run build

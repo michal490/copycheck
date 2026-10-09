@@ -17,8 +17,8 @@ Check the value of crypto you hold, unrealized gains/losses and break-even price
 - Open/partial/repeated/unknown positions are excluded. Incomplete or unusable wallet history suppresses all results for that wallet; a failed wallet does not invalidate others.
 
 ## Token market context
-- Both live wallet views show the full token address, Copy, and an Open live chart link to DEX Screener. The chart opens externally.
-- A separately labelled DEX Screener public API snapshot shows current price, pool liquidity and 24-hour pool volume. It matches the exact Solana base-token address and selects the returned matching pool with the highest reported liquidity.
+- The independent wallet review shows the full token address, Copy, and an Open CoinGecko chart link to GeckoTerminal by CoinGecko. The chart opens externally.
+- A CoinGecko Pro onchain snapshot shows current token price, reported pool reserves and 24-hour pool volume. Exact base/quote token relationships determine the price; the panel selects the highest reported reserves among up to 20 returned matching pools.
 - Refresh market requests another snapshot; successful responses can be cached for 30 seconds. This is not a historical fill or a guaranteed executable quote. The pool may differ from the one traded.
 - Click a wallet row or View buys & sells to reach its tokens and transaction evidence. Review is manual, not background tracking.
 
@@ -29,7 +29,7 @@ Check the value of crypto you hold, unrealized gains/losses and break-even price
 - Responsive interface and optional WebMCP tools for the same visible journeys.
 
 ## Run
-Use Node 22.13 or later. Run `npm ci`, then `npm run dev`. Build with `npm run build`. Tests: `node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts`. Types: `npx tsc --noEmit`.
+Use Node 22.13 or later. Run `npm ci`, then `npm run dev`. Build with `npm run build`. Tests: `node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts tests/token-market.test.ts`. Types: `npx tsc --noEmit`.
 
 The app works immediately in demo mode. Real wallet requests require the server secret `COINGECKO_API_KEY` with access to CoinGecko Pro wallet-trades data. Configure this as a server-side secret in your own hosting environment. For local Cloudflare development, use an untracked `.dev.vars` file containing that variable. Never use a browser-exposed variable or commit the real value.
 
@@ -55,7 +55,7 @@ These are CopyCheck calculations, not CoinGecko ratings. Timing is an observed b
 ## Limits
 Wallet-trades data does not establish initial inventory, transfers, every trading venue or actual remaining wallet balance. It does not itemize gas, priority tips, bot fees or platform fees. Results are gross estimates from returned swaps, not accounting or tax records. Missing records do not establish failed trades. Partly exited positions are shown but excluded from closed-position returns. Return decomposition applies to fill averages, not a claim that every fill copied another fill.
 
-Addresses are sent to CoinGecko when the user requests a live comparison. The app has no database and does not intentionally persist submitted addresses or reports. Browser export saves the current report locally. Hosting and API providers may retain their ordinary service logs. Wallet-report responses use no-store; price quotes can be cached for 60 seconds and DEX Screener market snapshots for 30 seconds. Selected token addresses are sent to DEX Screener for market context. The linked demo is public. The comparison route currently has no application-level authentication, quota or rate limiter. Add those controls before operating an unrestricted public instance using your own API allowance.
+Addresses are sent to CoinGecko when the user requests a live comparison. The app has no database and does not intentionally persist submitted addresses or reports. Browser export saves the current report locally. Hosting and API providers may retain their ordinary service logs. Wallet-report responses use no-store; price quotes can be cached for 60 seconds and CoinGecko market snapshots for 30 seconds. Selected token addresses are sent only to CoinGecko for market context. The existing server key also needs onchain pool access; there is no third-party fallback. The linked demo is public. The comparison route currently has no application-level authentication, quota or rate limiter. Add those controls before operating an unrestricted public instance using your own API allowance.
 
 ## CoinGecko
 - [API overview](https://www.coingecko.com/en/api)
@@ -110,12 +110,12 @@ The documentation describes source snapshot `ca57fc0758fea5e20fc5f31512b45592fad
 ## Validation
 
 ```sh
-node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts
+node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts tests/token-market.test.ts
 npx tsc --noEmit
 npm run build
 ```
 
-Twenty-nine tests cover comparison and review matching, arithmetic, incomplete histories, pagination, input validation, upstream errors and holdings calculations. These are not an independent security audit or a guarantee of complete provider coverage.
+Thirty-two tests cover comparison and review matching, arithmetic, incomplete histories, pagination, input validation, upstream errors, holdings calculations, base/quote market matching and server-only API headers. These are not an independent security audit or a guarantee of complete provider coverage.
 
 ## Third-party notices
 
