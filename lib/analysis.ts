@@ -5,6 +5,19 @@ export type Comparison = {token:string;label:string;leader:Position|null;followe
 export type Report = {mode:"demo"|"live";from:string;to:string;leaderWallet:string;followerWallet:string;rows:Comparison[];leaderAverage:number|null;followerAverage:number|null;gap:number|null;comparableCount:number;coverage:{leader:Omit<History,"trades">;follower:Omit<History,"trades">};createdAt:string};
 const sum=(trades:Trade[],key:"quantity"|"usd")=>trades.reduce((v,t)=>v+t[key],0);
 export const short=(v:string)=>v.length>14?v.slice(0,5)+"…"+v.slice(-4):v;
+export type DollarResult = {spent:number;received:number;pnl:number};
+// Only eligible, closed comparisons have a complete observed cost basis.
+// Sum unrounded USD fills; format cents only when displaying the result.
+export function dollarResults(row:Comparison):{leader:DollarResult;follower:DollarResult}|null{
+ if(!row.comparable||row.leader?.status!=="closed"||row.follower?.status!=="closed")return null;
+ const totals=(p:Position):DollarResult=>{
+  const spent=sum(p.trades.filter(t=>t.side==="buy"),"usd");
+  const received=sum(p.trades.filter(t=>t.side==="sell"),"usd");
+  return {spent,received,pnl:received-spent};
+ };
+ const leader=totals(row.leader),follower=totals(row.follower);
+ return [leader,follower].every(p=>p.spent>0&&p.received>0&&Object.values(p).every(Number.isFinite))?{leader,follower}:null;
+}
 export function positions(trades:Trade[]):Map<string,Position>{
  const groups=new Map<string,Trade[]>(); const seen=new Set<string>();
  for(const t of trades){if(seen.has(t.id))continue;seen.add(t.id);if(!Number.isFinite(t.quantity)||t.quantity<=0||!Number.isFinite(t.usd)||t.usd<=0||!Number.isFinite(t.time))continue;groups.set(t.token,[...(groups.get(t.token)||[]),t]);}
@@ -67,4 +80,3 @@ export function compare(leaderHistory:History,followerHistory:History,options:Pi
 export function formatDelay(seconds:number|null){if(seconds===null)return "unavailable";if(seconds===0)return "in the same second";const abs=Math.abs(seconds),value=abs<60?abs.toFixed(0)+"s":abs<3600?(abs/60).toFixed(1)+"m":(abs/3600).toFixed(1)+"h";return value+" "+(seconds<0?"earlier":"later");}
 export function percent(value:number|null){return value===null?"—":(value>=0?"+":"−")+Math.abs(value).toFixed(1)+"%";}
 export function money(value:number|null){return value===null?"—":new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumSignificantDigits:5}).format(value);}
-

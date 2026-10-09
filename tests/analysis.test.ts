@@ -1,11 +1,31 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {compare,positions,type Trade,type History} from "../lib/analysis.ts";
+import {compare,positions,dollarResults,type Trade,type History} from "../lib/analysis.ts";
 import {demoReport} from "../lib/demo.ts";
 import {validateRequest,validAddress,normalizeTrade,fetchHistory} from "../lib/coingecko.ts";
 const t=(id:string,side:"buy"|"sell",quantity:number,usd:number,time:number,token="A"):Trade=>({id,side,quantity,usd,time,token,tx:id});
 const history=(trades:Trade[],complete=true):History=>({trades,complete,skipped:0,pages:1});
 const options={mode:"demo" as const,from:"2026-09-24",to:"2026-09-24",leaderWallet:"leader",followerWallet:"follower"};
+
+test("dollar results sum all buys before rounding and retain different position sizes",()=>{
+ const l=history([t("a","buy",1,36.64229774918758,1000),t("b","sell",1,36.222596700172225,2000)]);
+ const f=history([t("c","buy",3,54.05099306782985,3000),t("d","buy",2,8.027375143255224,4000),t("e","buy",1,5.381115323230664,5000),t("f","sell",6,64.07831060691856,6000)]);
+ const d=dollarResults(compare(l,f,options).rows[0])!;
+ assert.equal(d.leader.spent.toFixed(2),"36.64");assert.equal(d.leader.received.toFixed(2),"36.22");assert.equal(d.leader.pnl.toFixed(2),"-0.42");
+ assert.equal(d.follower.spent.toFixed(2),"67.46");assert.equal(d.follower.received.toFixed(2),"64.08");assert.equal(d.follower.pnl.toFixed(2),"-3.38");
+});
+test("dollar results are withheld for incomplete, skipped, partial and uncertain comparisons",()=>{
+ const complete=history([t("a","buy",2,10,1000),t("b","sell",2,12,2000)]);
+ for(const other of [ {...complete,complete:false}, {...complete,skipped:1}, history([t("a","buy",2,10,1000),t("b","sell",1,6,2000)]),history([t("a","buy",2,10,2000000),t("b","sell",2,12,3000000)]) ]){
+  assert.equal(dollarResults(compare(complete,other,options).rows[0]),null);
+ }
+});
+test("dollar results handle profit, break-even and deduplicated fills",()=>{
+ const buy=t("a","buy",2,10,1000);
+ const l=history([buy,buy,t("b","sell",2,12,2000)]),f=history([buy,t("c","sell",2,10,3000)]);
+ const d=dollarResults(compare(l,f,options).rows[0])!;
+ assert.equal(d.leader.pnl,2);assert.equal(d.leader.spent,10);assert.equal(d.follower.pnl,0);
+});
 test("demo returns and attribution reconcile, excluding open and missing positions",()=>{
  const r=demoReport();assert.equal(r.comparableCount,2);assert.equal(r.rows.length,4);assert.ok(Math.abs(r.gap!+27.3333333333)<1e-8);
  for(const row of r.rows.filter(r=>r.comparable))assert.ok(Math.abs(row.entryEffect!+row.exitEffect!-row.gap!)<1e-10);
