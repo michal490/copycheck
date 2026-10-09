@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CopyCheck — Understand your copied trades",
-  description: "Compare two Solana wallets and understand differences in entry prices, exits, and timing.",
+  title: "CopyCheck — See where you stand",
+  description: "Check your crypto holdings, unrealized gains and break-even prices. Review Solana trades and compare wallets when you want to go deeper.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

@@ -1,19 +1,29 @@
 # CopyCheck
 
-A focused Solana trade review app. Compare a wallet you followed with your own and inspect differences in observed entry prices, exits and timing.
+Check the value of crypto you hold, unrealized gains/losses and break-even prices. Review completed Solana trades in one to five independent wallets, or use the original two-wallet entry/exit comparison.
 
 [Try the live app](https://copycheck-trade-review.mszajnowiec.chatgpt.site/) · [Technical white paper](docs/CopyCheck-white-paper.pdf) · [Developer reference](docs/Developer-reference.html)
 
 ![Article example: observed returns differ mainly at exit](docs/screenshots/article-price-comparison.png)
 
-## Included
+## Holdings and independent wallet review
+- My holdings is the default: manually enter up to ten amounts and optional average USD purchase prices, including exchange-held coins. CoinGecko `/simple/price` supplies timestamped quotes. No wallet balance import is implied.
+- Current value = amount × price. Unrealized gain/loss = current value − amount × average purchase price. Missing costs suppress aggregate P&L; missing/stale prices suppress total value.
+- Break-even price is entered average cost; required move = (average cost / quoted price − 1) × 100. Fees and taxes are excluded.
+- Allocation shows the largest holding as a fraction of entered market value. The scenario slider applies the same hypothetical change to every coin, holding quantities fixed.
+- Quotes older than 15 minutes are rejected. Prices use the server Pro key when configured, otherwise keyless public access; keyless access has shared rate limits and is for prototyping. There is no automatic polling.
+- Amounts and costs stay in browser memory; only coin IDs are sent to the price endpoint. Reloading clears entries. Demo amounts and quotes are explicitly fictional.
+- Wallet review independently analyzes 1–5 addresses over up to 30 UTC days. There is no copying time window in this mode. Eligible closed tokens contribute actual recorded sale USD minus buy USD; aggregate return weights by recorded buy dollars. This is not full-wallet P&L or a ranking of skill.
+- Open/partial/repeated/unknown positions are excluded. Incomplete or unusable wallet history suppresses all results for that wallet; a failed wallet does not invalidate others.
+
+## Original two-wallet comparison
 - Interactive fictional example with four distinct cases: higher entry price, worse exit, partial exit and missing follower record.
 - A server-side CoinGecko wallet-trades integration with cursor pagination, deduplication, request timeout and a five-page budget per wallet.
 - Per-token price comparison, transaction evidence, percentage-point attribution and JSON report export.
 - Responsive interface and optional WebMCP tools for the same visible journeys.
 
 ## Run
-Use Node 22.13 or later. Run `npm ci`, then `npm run dev`. Build with `npm run build`. Tests: `node --experimental-strip-types --test tests/analysis.test.ts`. Types: `npx tsc --noEmit`.
+Use Node 22.13 or later. Run `npm ci`, then `npm run dev`. Build with `npm run build`. Tests: `node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts`. Types: `npx tsc --noEmit`.
 
 The app works immediately in demo mode. Real wallet requests require the server secret `COINGECKO_API_KEY` with access to CoinGecko Pro wallet-trades data. Configure this as a server-side secret in your own hosting environment. For local Cloudflare development, use an untracked `.dev.vars` file containing that variable. Never use a browser-exposed variable or commit the real value.
 
