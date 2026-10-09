@@ -28,3 +28,4 @@ html{scrollbar-gutter:stable}
 .holdings-form .form-footer button[data-variant="default"]{background:#d5f894;color:#172013;font-size:14px;font-weight:700;min-height:42px;padding:10px 18px}
 .holdings-form .form-footer button[data-variant="default"]:hover:not(:disabled){background:#e1ffad;color:#10170d}
 .holdings-form .form-footer button[data-variant="default"]:disabled{background:#adc47e;color:#172013;opacity:1;cursor:wait}
+.wallet-row{cursor:pointer}.wallet-row:hover{background:#283522}.view-trades{white-space:nowrap;font-weight:600}.wallet-trades-section,.wallet-trade-detail{scroll-margin-top:110px}@media(max-width:760px){.wallet-trades-section,.wallet-trade-detail{scroll-margin-top:160px}.wallet-trades-section{display:flex;flex-direction:column}.wallet-trade-detail{order:-1}}
