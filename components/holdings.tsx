@@ -7,7 +7,7 @@ import {holdingResult,validQuote,type Quote} from '@/lib/holdings';
 type Row={key:number;id:string;quantity:string;cost:string};
 const usd=(n:number|null)=>n===null?'—':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n);
 const pct=(n:number|null)=>n===null?'—':(n>0?'+':'')+n.toFixed(1)+'%';
-const coins:Record<string,string>={bitcoin:'Bitcoin (BTC)',ethereum:'Ethereum (ETH)',solana:'Solana (SOL)',binancecoin:'BNB',ripple:'XRP',dogecoin:'Dogecoin (DOGE)',cardano:'Cardano (ADA)',chainlink:'Chainlink (LINK)','avalanche-2':'Avalanche (AVAX)',sui:'Sui (SUI)',tether:'Tether (USDT)','usd-coin':'USDC'};
+const coins:Record<string,string>={bitcoin:'Bitcoin (BTC)',ethereum:'Ethereum (ETH)',solana:'Solana (SOL)',hyperliquid:'Hyperliquid (HYPE)',binancecoin:'BNB',ripple:'XRP',dogecoin:'Dogecoin (DOGE)',cardano:'Cardano (ADA)',chainlink:'Chainlink (LINK)','avalanche-2':'Avalanche (AVAX)',sui:'Sui (SUI)',tether:'Tether (USDT)','usd-coin':'USDC'};
 export default function Holdings({onReview,onCompare}:{onReview:()=>void;onCompare:()=>void}){
  const [rows,setRows]=useState<Row[]>([{key:1,id:'bitcoin',quantity:'',cost:''}]),[quotes,setQuotes]=useState<Record<string,Quote>>({}),[busy,setBusy]=useState(false),[error,setError]=useState(''),[demo,setDemo]=useState(false),[exampleAmounts,setExampleAmounts]=useState(false),[change,setChange]=useState(0);
  const update=(key:number,field:keyof Omit<Row,'key'>,value:string)=>{setRows(rs=>rs.map(r=>r.key===key?{...r,[field]:value}:r));};

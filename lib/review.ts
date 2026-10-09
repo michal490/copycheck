@@ -23,7 +23,7 @@ export function validateReviewRequest(body:unknown,now=Date.now()){
  const validDate=(v:unknown):v is string=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
  if(!validDate(b.from)||!validDate(b.to))throw new Error('Choose valid UTC start and end dates.');
  const start=Date.parse(b.from),end=Date.parse(b.to)+86400000-1000;
- if(end<start||end-start>=30*86400000||start>now||Date.parse(b.to)>now)throw new Error('Choose an ordered date range up to 30 days, ending no later than today.');
+ if(end<start||end-start>=90*86400000||start>now||Date.parse(b.to)>now)throw new Error('Choose an ordered date range up to 90 days, ending no later than today.');
  return {wallets:b.wallets as string[],from:b.from,to:b.to,start,end:Math.min(end,now)};
 }
 export function demoReview():ReviewReport{

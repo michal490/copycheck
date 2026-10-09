@@ -64,7 +64,7 @@ test("Solana addresses are decoded to 32 bytes; dates and identical wallets vali
  const a="11111111111111111111111111111111",b="So11111111111111111111111111111111111111112";
  assert.ok(validAddress(a));assert.ok(validAddress(b));assert.ok(!validAddress("z".repeat(44)));assert.ok(!validAddress("0".repeat(32)));
  assert.throws(()=>validateRequest({leader:a,follower:a,from:"2026-09-01",to:"2026-09-02"}));
- assert.throws(()=>validateRequest({leader:a,follower:b,from:"2026-08-01",to:"2026-09-24"}));
+ assert.throws(()=>validateRequest({leader:a,follower:b,from:"2026-06-01",to:"2026-09-24"}));
  assert.throws(()=>validateRequest({leader:a,follower:b,from:"2026-02-30",to:"2026-03-01"}));
  assert.equal(validateRequest({leader:a,follower:b,from:"2026-09-01",to:"2026-09-02"},Date.parse("2026-09-29")).from,"2026-09-01");
 });
@@ -95,4 +95,12 @@ test("wallet API date bounds use whole UNIX seconds, including fractional curren
 test("upstream errors are actionable and contain no secrets",async()=>{
  const mock=(async()=>new Response("secret",{status:429})) as typeof fetch;
  await assert.rejects(fetchHistory("wallet",0,1,"hidden-secret",new AbortController().signal,mock),/rate limit/);
+});
+test('90-day history uses contiguous 30-day windows and retains cross-window trades',async()=>{
+ const start=Date.parse('2026-07-12'),end=start+90*86400000-1000,requests:URL[]=[];
+ const mock=(async(input:URL|RequestInfo)=>{const url=new URL(String(input));requests.push(url);const i=requests.length;const time=Number(url.searchParams.get('from'))*1000;const attributes=i===1?{...raw.attributes,block_timestamp:new Date(time).toISOString()}:{...raw.attributes,kind:'sell',from_token_address:raw.attributes.to_token_address,from_token_amount:'2',volume_in_usd:'240',block_timestamp:new Date(time).toISOString()};return Response.json({data:i<=2?[{id:'window'+i,attributes}]:[],meta:{next_cursor:null}});}) as typeof fetch;
+ const result=await fetchHistory('wallet',start,end,'test',new AbortController().signal,mock);
+ assert.equal(requests.length,3);assert.equal(result.complete,true);assert.equal(result.pages,3);assert.equal(result.trades.length,2);
+ for(let i=0;i<3;i++){assert.equal(Number(requests[i].searchParams.get('from')),start/1000+i*30*86400);assert.equal(Number(requests[i].searchParams.get('to')),start/1000+(i+1)*30*86400-1);assert.equal(requests[i].searchParams.has('cursor'),false);}
+ assert.ok(Math.abs([...positions(result.trades).values()][0].returnPct!-20)<1e-9);
 });

@@ -13,7 +13,7 @@ export function validateRequest(body:unknown,now=Date.now()){
  const date=(v:unknown)=>typeof v==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v;
  if(!date(b.from)||!date(b.to))throw new Error("Choose a valid start and end date.");
  const from=b.from as string,to=b.to as string,start=Date.parse(from),end=Date.parse(to)+86400000-1000;
- if(end<start||end-start>=30*86400000)throw new Error("Choose an ordered date range of no more than 30 days.");
+ if(end<start||end-start>=90*86400000)throw new Error("Choose an ordered date range of no more than 90 days.");
  if(start>now||Date.parse(to)>now)throw new Error("The date range cannot be in the future.");
  return {leader:b.leader,follower:b.follower,from,to,start,end:Math.min(end,now)};
 }
@@ -24,7 +24,7 @@ export function normalizeTrade(raw:Raw):Trade|null{
  if(typeof token!=="string"||!validAddress(token)||typeof a.tx_hash!=="string"||!/^[1-9A-HJ-NP-Za-km-z]{64,90}$/.test(a.tx_hash)||!Number.isFinite(quantity)||quantity<=0||!Number.isFinite(usd)||usd<=0||!Number.isFinite(time))return null;
  return{id:raw.id,token,side:a.kind,quantity,usd,time,tx:a.tx_hash};
 }
-export async function fetchHistory(address:string,from:number,to:number,key:string,signal:AbortSignal,fetcher:typeof fetch=fetch):Promise<History>{
+async function fetchWindow(address:string,from:number,to:number,key:string,signal:AbortSignal,fetcher:typeof fetch=fetch):Promise<History>{
  const trades:Trade[]=[],seen=new Set<string>();let cursor:string|null=null,skipped=0;
  for(let page=1;page<=5;page++){
   const url=new URL("https://pro-api.coingecko.com/api/v3/onchain/networks/solana/wallets/"+encodeURIComponent(address)+"/trades");
@@ -39,4 +39,19 @@ export async function fetchHistory(address:string,from:number,to:number,key:stri
   const next=body.meta.next_cursor as string|null;if(next===null)return{trades,complete:true,skipped,pages:page};if(next===cursor)return{trades,complete:false,skipped,pages:page};cursor=next;
  }
  return{trades,complete:false,skipped,pages:5};
+}
+
+// Join API-sized windows before calculating positions, so a buy and sale in
+// different months remain part of the same observed position.
+export async function fetchHistory(address:string,from:number,to:number,key:string,signal:AbortSignal,fetcher:typeof fetch=fetch):Promise<History>{
+ const start=Math.floor(from/1000)*1000,end=Math.floor(to/1000)*1000;
+ if(!Number.isFinite(start)||!Number.isFinite(end)||end<start||end-start>=90*86400000)throw new Error('Choose a date range of up to 90 days.');
+ const trades:Trade[]=[],seen=new Set<string>();let pages=0,skipped=0;
+ for(let cursor=start;cursor<=end;cursor+=30*86400000){
+  const result=await fetchWindow(address,cursor,Math.min(end,cursor+30*86400000-1000),key,signal,fetcher);
+  pages+=result.pages;skipped+=result.skipped;
+  for(const trade of result.trades)if(!seen.has(trade.id)){seen.add(trade.id);trades.push(trade);}
+  if(!result.complete)return {trades,pages,skipped,complete:false};
+ }
+ return {trades,pages,skipped,complete:true};
 }

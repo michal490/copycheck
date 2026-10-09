@@ -13,12 +13,12 @@ Check the value of crypto you hold, unrealized gains/losses and break-even price
 - Allocation shows the largest holding as a fraction of entered market value. The scenario slider applies the same hypothetical change to every coin, holding quantities fixed.
 - Quotes older than 15 minutes are rejected. Prices use the server Pro key when configured, otherwise keyless public access; keyless access has shared rate limits and is for prototyping. There is no automatic polling.
 - Amounts and costs stay in browser memory; only coin IDs are sent to the price endpoint. Reloading clears entries. Demo amounts and quotes are explicitly fictional.
-- Wallet review independently analyzes 1–5 addresses over up to 30 UTC days. There is no copying time window in this mode. Eligible closed tokens contribute actual recorded sale USD minus buy USD; aggregate return weights by recorded buy dollars. This is not full-wallet P&L or a ranking of skill.
+- Wallet review independently analyzes 1–5 addresses over up to 90 UTC days. There is no copying time window in this mode. Eligible closed tokens contribute actual recorded sale USD minus buy USD; aggregate return weights by recorded buy dollars. This is not full-wallet P&L or a ranking of skill.
 - Open/partial/repeated/unknown positions are excluded. Incomplete or unusable wallet history suppresses all results for that wallet; a failed wallet does not invalidate others.
 
 ## Original two-wallet comparison
 - Interactive fictional example with four distinct cases: higher entry price, worse exit, partial exit and missing follower record.
-- A server-side CoinGecko wallet-trades integration with cursor pagination, deduplication, request timeout and a five-page budget per wallet.
+- A server-side CoinGecko wallet-trades integration with cursor pagination, deduplication, request timeout and a five-page budget per wallet per 30-day segment.
 - Per-token price comparison, transaction evidence, percentage-point attribution and JSON report export.
 - Responsive interface and optional WebMCP tools for the same visible journeys.
 
@@ -31,8 +31,8 @@ Live wallet-trades access was verified on 6 October 2026 using an entitled serve
 
 ## Data and formulas
 Source endpoint: GET /api/v3/onchain/networks/solana/wallets/{address}/trades.
-- Two inclusive UTC dates, up to 30 days; today ends at request time.
-- Five pages of up to 300 records per wallet. Any truncated history or skipped invalid records suppresses the headline comparison.
+- Two inclusive UTC dates, up to 90 days; today ends at request time.
+- Up to three 30-day segments, each with five pages of up to 300 records per wallet. Any truncated history or skipped invalid records suppresses the headline comparison.
 - Group by exact, case-sensitive token contract address.
 - Compare one observed position per token; repeated closed/reopened positions are excluded.
 - Require an observed first follower buy from 0 to 30 minutes after the leader's. This is a heuristic candidate match, not proof of copy intent.
