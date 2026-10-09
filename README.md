@@ -2,12 +2,12 @@
 
 Check the value of crypto you hold, unrealized gains/losses and break-even prices. Review completed Solana trades in one to five independent wallets, or use the original two-wallet entry/exit comparison.
 
-[Try the live app](https://copycheck-trade-review.mszajnowiec.chatgpt.site/) · [Technical white paper](docs/CopyCheck-white-paper.pdf) · [Developer reference](docs/Developer-reference.html)
+[Try the live app](https://copycheck-trade-review.mszajnowiec.chatgpt.site/) · [Current feature and data guide](docs/current-features.md) · [Archived white paper](docs/CopyCheck-white-paper.pdf) · [Archived developer reference](docs/Developer-reference.html)
 
 ![Article example: observed returns differ mainly at exit](docs/screenshots/article-price-comparison.png)
 
 ## Holdings and independent wallet review
-- My holdings is the default: manually enter up to ten amounts and optional average USD purchase prices, including exchange-held coins. CoinGecko `/simple/price` supplies timestamped quotes. No wallet balance import is implied.
+- My holdings is the default: manually enter up to ten amounts and optional average USD purchase prices, including exchange-held coins, BTC and Hyperliquid's HYPE. HYPE is a manually entered coin amount, not a perpetual-position import. CoinGecko `/simple/price` supplies timestamped quotes. No wallet balance import is implied.
 - Current value = amount × price. Unrealized gain/loss = current value − amount × average purchase price. Missing costs suppress aggregate P&L; missing/stale prices suppress total value.
 - Break-even price is entered average cost; required move = (average cost / quoted price − 1) × 100. Fees and taxes are excluded.
 - Allocation shows the largest holding as a fraction of entered market value. The scenario slider applies the same hypothetical change to every coin, holding quantities fixed.
@@ -15,6 +15,12 @@ Check the value of crypto you hold, unrealized gains/losses and break-even price
 - Amounts and costs stay in browser memory; only coin IDs are sent to the price endpoint. Reloading clears entries. Demo amounts and quotes are explicitly fictional.
 - Wallet review independently analyzes 1–5 addresses over up to 90 UTC days. There is no copying time window in this mode. Eligible closed tokens contribute actual recorded sale USD minus buy USD; aggregate return weights by recorded buy dollars. This is not full-wallet P&L or a ranking of skill.
 - Open/partial/repeated/unknown positions are excluded. Incomplete or unusable wallet history suppresses all results for that wallet; a failed wallet does not invalidate others.
+
+## Token market context
+- Both live wallet views show the full token address, Copy, and an Open live chart link to DEX Screener. The chart opens externally.
+- A separately labelled DEX Screener public API snapshot shows current price, pool liquidity and 24-hour pool volume. It matches the exact Solana base-token address and selects the returned matching pool with the highest reported liquidity.
+- Refresh market requests another snapshot; successful responses can be cached for 30 seconds. This is not a historical fill or a guaranteed executable quote. The pool may differ from the one traded.
+- Click a wallet row or View buys & sells to reach its tokens and transaction evidence. Review is manual, not background tracking.
 
 ## Original two-wallet comparison
 - Interactive fictional example with four distinct cases: higher entry price, worse exit, partial exit and missing follower record.
@@ -49,7 +55,7 @@ These are CopyCheck calculations, not CoinGecko ratings. Timing is an observed b
 ## Limits
 Wallet-trades data does not establish initial inventory, transfers, every trading venue or actual remaining wallet balance. It does not itemize gas, priority tips, bot fees or platform fees. Results are gross estimates from returned swaps, not accounting or tax records. Missing records do not establish failed trades. Partly exited positions are shown but excluded from closed-position returns. Return decomposition applies to fill averages, not a claim that every fill copied another fill.
 
-Addresses are sent to CoinGecko when the user requests a live comparison. The app has no database and does not intentionally persist submitted addresses or reports. Browser export saves the current report locally. Hosting and API providers may retain their ordinary service logs. API responses use no-store. The linked demo is public. The comparison route currently has no application-level authentication, quota or rate limiter. Add those controls before operating an unrestricted public instance using your own API allowance.
+Addresses are sent to CoinGecko when the user requests a live comparison. The app has no database and does not intentionally persist submitted addresses or reports. Browser export saves the current report locally. Hosting and API providers may retain their ordinary service logs. Wallet-report responses use no-store; price quotes can be cached for 60 seconds and DEX Screener market snapshots for 30 seconds. Selected token addresses are sent to DEX Screener for market context. The linked demo is public. The comparison route currently has no application-level authentication, quota or rate limiter. Add those controls before operating an unrestricted public instance using your own API allowance.
 
 ## CoinGecko
 - [API overview](https://www.coingecko.com/en/api)
@@ -93,7 +99,7 @@ Click **Compare wallets**, then open the token's price comparison and Evidence t
 
 This pair had the most negative follower-minus-leader return difference among 84 eligible token comparisons discovered from 60 public wallets. It was deliberately selected, not a representative copy-trading result. The addresses are test roles, not a verified copying relationship. Fees, transfers and earlier holdings are not reconciled; these figures do not establish net wallet losses or bot failure.
 
-The white paper and technical reference below are historical documentation and may show the earlier example. Use `docs/example.json` and the instructions above for the current article example.
+See the [current feature and data guide](docs/current-features.md) for all three views, the 90-day fetch strategy, source attribution, limits and the detailed wallet-selection method. The white paper and technical reference below are archived 6 October documentation and may show the earlier example and limits. They do not describe the expanded app. Use `docs/example.json` and the instructions above for the current article example.
 
 - [Saved report JSON](docs/example.json)
 - [White paper](docs/CopyCheck-white-paper.pdf)
@@ -104,12 +110,12 @@ The documentation describes source snapshot `ca57fc0758fea5e20fc5f31512b45592fad
 ## Validation
 
 ```sh
-node --experimental-strip-types --test tests/analysis.test.ts
+node --experimental-strip-types --test tests/analysis.test.ts tests/review.test.ts tests/holdings.test.ts
 npx tsc --noEmit
 npm run build
 ```
 
-Fourteen tests cover matching, arithmetic, incomplete histories, pagination, input validation and upstream errors. These are not an independent security audit or a guarantee of complete provider coverage.
+Twenty-nine tests cover comparison and review matching, arithmetic, incomplete histories, pagination, input validation, upstream errors and holdings calculations. These are not an independent security audit or a guarantee of complete provider coverage.
 
 ## Third-party notices
 
