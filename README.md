@@ -58,10 +58,10 @@ Wallet-trades data does not establish initial inventory, transfers, every tradin
 Addresses are sent to CoinGecko when the user requests a live comparison. The app has no database and does not intentionally persist submitted addresses or reports. Browser export saves the current report locally. Hosting and API providers may retain their ordinary service logs. Wallet-report responses use no-store; price quotes can be cached for 60 seconds and CoinGecko market snapshots for 30 seconds. Selected token addresses are sent only to CoinGecko for market context. The existing server key also needs onchain pool access; there is no third-party fallback. The linked demo is public. The comparison route currently has no application-level authentication, quota or rate limiter. Add those controls before operating an unrestricted public instance using your own API allowance.
 
 ## CoinGecko
-- [API overview](https://www.coingecko.com/en/api)
-- [API pricing](https://www.coingecko.com/en/api/pricing)
-- [Wallet trades documentation](https://docs.coingecko.com/reference/wallet-trades)
-- [Documentation](https://docs.coingecko.com/)
+- [API overview](https://www.coingecko.com/en/api?&utm_content=green_but_red)
+- [API pricing](https://www.coingecko.com/en/api/pricing?&utm_content=green_but_red)
+- [Wallet trades documentation](https://docs.coingecko.com/reference/wallet-trades?&utm_content=green_but_red)
+- [Documentation](https://docs.coingecko.com/?&utm_content=green_but_red)
 
 This project is independent of CoinGecko. Synthetic demo tokens, wallets and transactions are fictional and carry no blockchain links.
 
@@ -120,3 +120,4 @@ Thirty-two tests cover comparison and review matching, arithmetic, incomplete hi
 ## Third-party notices
 
 Retain the notices in `build/sites-vite-plugin.LICENSE` and `vendor/shadcn-tailwind-4.13.0.LICENSE.md`. Dependencies retain their respective licenses. This repository does not add a blanket license over third-party code.
+
